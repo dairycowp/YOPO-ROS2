@@ -11,7 +11,7 @@ The `Controller/src/utils` directory contains C++ and message utilities required
 
 ```bash
 cd Controller
-colcon build --packages-select utils --symlink-install
+colcon build --packages-select cmake-utils --symlink-install
 ```
 
 ### 2. Build the full Controller package
