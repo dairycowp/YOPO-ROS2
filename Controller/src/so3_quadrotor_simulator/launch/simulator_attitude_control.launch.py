@@ -1,7 +1,15 @@
+import os
+
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+
+
+def _default_logger_dir():
+    logger_dir = os.path.join(os.path.expanduser('~'), '.ros', 'so3_control', 'logger')
+    os.makedirs(logger_dir, exist_ok=True)
+    return logger_dir + os.sep
 
 
 def generate_launch_description():
@@ -9,6 +17,7 @@ def generate_launch_description():
     init_x = LaunchConfiguration('init_x', default='0.0')
     init_y = LaunchConfiguration('init_y', default='0.0')
     init_z = LaunchConfiguration('init_z', default='2.0')
+    logger_dir = _default_logger_dir()
 
     # Declare launch arguments
     init_x_arg = DeclareLaunchArgument(
@@ -64,7 +73,7 @@ def generate_launch_description():
                 'use_disturbance_observer': True,
                 'hover_thrust': 0.375,
                 'record_log': False,
-                'logger_file_name': '/home/hu/YOPO_backup/YOPO/Controller/src/so3_control/logger/'
+                'logger_file_name': logger_dir
             }
         ],
         remappings=[

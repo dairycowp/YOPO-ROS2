@@ -1,0 +1,11 @@
+# ROS 2 / colcon build artifacts
+/Controller/build/
+/Controller/install/
+/Controller/log/
+/Simulator/build/
+/Simulator/install/
+/Simulator/log/
+
+# Python cache files
+__pycache__/
+*.py[cod]

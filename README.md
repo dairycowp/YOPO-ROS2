@@ -5,28 +5,29 @@ A ROS 2 version for [TJU-YOPO-Simple](https://github.com/TJU-Aerial-Robotics/YOP
 
 ## 🛠️ Build Instructions
 
-### 1. Build the `utils` library inside `Controller`
+### 1. Build the `cmake_utils` package inside `Controller`
 
-The `Controller/src/utils` directory contains C++ and message utilities required by other components. Build it first **within the `Controller` workspace**:
+The `Controller/src/utils` directory contains C++ and message utilities required by other components. Build `cmake_utils` first **within the `Controller` workspace**:
 
 ```bash
 cd Controller
-colcon build --packages-select cmake-utils --symlink-install
+colcon build --packages-select cmake_utils --symlink-install
+source install/setup.bash
 ```
 
 ### 2. Build the full Controller package
 ```bash
-cd Controller
-colcon build
+# Still inside Controller
+colcon build --symlink-install
 ```
 
 ### 3. Build the Simulator package
 ```bash
-cd Simulator
-colcon build 
+cd ../Simulator
+colcon build --symlink-install
 ```
 ## ▶️ Launch Instructions
-Open three separate terminals to run the full system:
+Open four separate terminals to run the full system:
 
 ### Terminal 1: Launch drone simulator (SO(3) controller)
 ```bash
@@ -45,6 +46,14 @@ ros2 run sensor_simulator sensor_simulator_cuda
 ```bash
 cd YOPO
 # Source Controller to access quadrotor_msgs
-source ~/Controller/install/setup.bash
+source ../Controller/install/setup.bash
 python3 test_yopo_ros.py
+```
+
+### Terminal 4: Launch RViz
+```bash
+cd YOPO
+# Source Controller so RViz can resolve package:// mesh resources
+source ../Controller/install/setup.bash
+rviz2 -d yopo2.rviz
 ```
